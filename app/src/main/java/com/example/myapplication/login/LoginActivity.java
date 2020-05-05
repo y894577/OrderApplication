@@ -3,8 +3,10 @@ package com.example.myapplication.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -20,7 +23,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.myapplication.BottomBar;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -110,8 +125,47 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            String userID = usernameEditText.getText().toString();
+                            String userPwd = passwordEditText.getText().toString();
+                            OkHttpClient client = new OkHttpClient();
+                            RequestBody requestBody = new FormBody.Builder()
+                                    .add("userID", userID)
+                                    .add("userPwd", userPwd)
+                                    .build();
+                            Request request = new Request.Builder()
+                                    .url("http://192.168.0.102:8088/login")
+                                    .post(requestBody)
+                                    .build();
+                            client.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                    Log.d("tag", "onFailure: " + e.getMessage());
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    Log.d("tag", response.protocol() + " " + response.code() + " " + response.message());
+                                    Headers headers = response.headers();
+                                    for (int i = 0; i < headers.size(); i++) {
+                                        Log.d("tag", headers.name(i) + ":" + headers.value(i));
+                                    }
+//                                    Log.d("tag", "onResponse: " + response.body().string().length());
+                                    if (!response.body().string().equals("[]")){
+                                        Intent intent = new Intent(LoginActivity.this, BottomBar.class);
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
             }
         });
     }
@@ -126,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 
-    private void jumpToIndex(){
+    private void jumpToIndex() {
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this, BottomBar.class);
         startActivity(intent);
