@@ -14,4 +14,13 @@
     <string name="title_notifications">订单</string>
     <string name="title_myinfo">我的</string>
     <string name="title_activity_bottom_bar">首页</string>
+
+    <string name="myinfo_credit">积分</string>
+    <string name="myinfo_code">会员码</string>
+    <string name="myinfo_gift">礼品券</string>
+    <string name="myinfo_exchange">兑换中心</string>
+    <string name="myinfo_info">消息中心</string>
+    <string name="myinfo_service">客服中心</string>
+    <string name="myinfo_more">更多</string>
+
 </resources>

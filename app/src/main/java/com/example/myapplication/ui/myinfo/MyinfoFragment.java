@@ -23,13 +23,13 @@ public class MyinfoFragment extends Fragment {
         myinfoViewModel =
                 ViewModelProviders.of(this).get(MyinfoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_myinfo, container, false);
-        final TextView textView = root.findViewById(R.id.text_myinfo);
-        myinfoViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//        final TextView textView = root.findViewById(R.id.text_myinfo);
+//        myinfoViewModel.getText().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
         return root;
     }
 }
