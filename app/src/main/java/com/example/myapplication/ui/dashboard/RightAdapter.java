@@ -61,14 +61,14 @@ public class RightAdapter extends BaseAdapter {
         }
         vh.tv_content.setText(data.get(position).getName());
         if (position == 0) {//如果是第一个  需要显示标题
-            vh.tv_right.setVisibility(View.VISIBLE);
+//            vh.tv_right.setVisibility(View.VISIBLE);
             vh.tv_right.setText(data.get(position).getTitle());
         } else if (!TextUtils.equals(data.get(position).getTitle(),
                 data.get(position - 1).getTitle())) {//如果这个标题和上一个不一样   也需要将标题显示出来
-            vh.tv_right.setVisibility(View.VISIBLE);
+//            vh.tv_right.setVisibility(View.VISIBLE);
             vh.tv_content.setText(data.get(position).getTitle());
         } else {
-            vh.tv_right.setVisibility(View.GONE);
+//            vh.tv_right.setVisibility(View.GONE);
         }
         return convertView;
     }

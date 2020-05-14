@@ -7,39 +7,118 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ListView
-            android:id="@+id/lv_left"
-            android:layout_width="100dp"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-        </ListView>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_weight="19"
+            android:orientation="horizontal"
+            app:layout_constraintDimensionRatio="h,1:1">
 
             <ListView
-                android:id="@+id/lv_right"
-                android:layout_width="600dp"
-                android:layout_height="match_parent">
+                android:id="@+id/lv_left"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="20dp"
+                android:layout_weight="1">
 
             </ListView>
 
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3">
+
+                <ListView
+                    android:id="@+id/lv_right"
+                    android:layout_width="600dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp">
+
+                </ListView>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#9f9f9f"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="120dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="0dp"-->
+<!--                android:drawableRight="@drawable/icon_shoppingcar"-->
+
+<!--                android:text="@string/myinfo_service" />-->
+            <ImageView
+                android:id="@+id/icon_shoppingcar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/icon_shoppingcar"/>
+
             <TextView
-                android:id="@+id/tv_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#9f9f9f"
-                android:gravity="center"
-                android:padding="5dp"
-                android:textColor="#000000"
-                android:textSize="18sp" />
-        </RelativeLayout>
+                android:layout_height="match_parent"
+                android:layout_marginVertical="10dp"
+                android:layout_weight="3"
+                android:textSize="20dp"
+                android:text="@string/order_shoppingcar"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="10dp"
+                android:layout_weight="7"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:paddingTop="10dp"
+                android:background="@drawable/calculate_style"
+                android:textColor="@color/white"
+                android:text="@string/order_calculate"/>
+
+        </LinearLayout>
+
     </LinearLayout>
+
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

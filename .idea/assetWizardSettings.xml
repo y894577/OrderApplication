@@ -24,7 +24,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="opacityPercent" value="60" />
+                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="paddingPercent" value="5" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -35,7 +36,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/D:/jetbrain/apps/AndroidStudio/ch-0/191.6010548/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_subtitles_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/D:/jetbrain/apps/AndroidStudio/ch-0/191.6010548/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_add_shopping_cart_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -69,8 +70,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="icon_index_order" />
-                                      <entry key="themeColor" value="ffffff" />
+                                      <entry key="outputName" value="icon_shoppingcar" />
+                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="themeColor" value="111111" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -160,6 +162,43 @@
                         <option name="values">
                           <map>
                             <entry key="outputIconType" value="ACTIONBAR" />
+                          </map>
+                        </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState>
+              <option name="children">
+                <map>
+                  <entry key="vectorAssetStep">
+                    <value>
+                      <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/D:/jetbrain/apps/AndroidStudio/ch-0/191.6010548/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_add_shopping_cart_black_24dp.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputName" value="icon_shoppingcar" />
+                            <entry key="sourceFile" value="C:\Users\87643" />
                           </map>
                         </option>
                       </PersistentState>

@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ListView;
@@ -51,7 +52,6 @@ public class BottomBar extends AppCompatActivity {
     }
 
     private void initData() {
-
 
     }
 

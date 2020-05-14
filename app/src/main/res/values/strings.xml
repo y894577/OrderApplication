@@ -22,5 +22,8 @@
     <string name="myinfo_info">消息中心</string>
     <string name="myinfo_service">客服中心</string>
     <string name="myinfo_more">更多</string>
+    
+    <string name="order_shoppingcar">购物车</string>
+    <string name="order_calculate">结算</string>
 
 </resources>
