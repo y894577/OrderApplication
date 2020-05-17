@@ -1,27 +1,29 @@
 package com.example.myapplication;
 
 public class BaseData {
+    private String id;
     private String name;
-    private int type;// 类型 后边要根据类型显示标题
-    private String title;//
+    private float price;
+    private String tag;
 
-    public BaseData(String name, int type, String title) {
+    public BaseData(String id,String name, float price, String tag) {
         super();
+        this.id = id;
         this.name = name;
-        this.type = type;
-        this.title = title;
+        this.price = price;
+        this.tag = tag;
     }
 
     public BaseData() {
         super();
     }
 
-    public String getTitle() {
-        return title;
+    public String getId() {
+        return id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -32,12 +34,19 @@ public class BaseData {
         this.name = name;
     }
 
-    public int getType() {
-        return type;
+    public float getPrice() {
+        return price;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 }

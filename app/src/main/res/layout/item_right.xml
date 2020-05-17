@@ -63,7 +63,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/icon_add"
+            android:id="@+id/add_to_car"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/icon_add"/>

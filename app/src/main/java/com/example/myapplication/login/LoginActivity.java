@@ -129,15 +129,17 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            String userID = usernameEditText.getText().toString();
-                            String userPwd = passwordEditText.getText().toString();
+//                            String userID = usernameEditText.getText().toString();
+//                            String userPwd = passwordEditText.getText().toString();
+                            String userID = "123456";
+                            String userPwd = "123456";
                             OkHttpClient client = new OkHttpClient();
                             RequestBody requestBody = new FormBody.Builder()
                                     .add("userID", userID)
                                     .add("userPwd", userPwd)
                                     .build();
                             Request request = new Request.Builder()
-                                    .url("http://192.168.0.102:8088/login")
+                                    .url("http://192.168.0.104:8088/login")
                                     .post(requestBody)
                                     .build();
                             client.newCall(request).enqueue(new Callback() {
@@ -154,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("tag", headers.name(i) + ":" + headers.value(i));
                                     }
 //                                    Log.d("tag", "onResponse: " + response.body().string().length());
-                                    if (!response.body().string().equals("[]")){
+                                    if (!response.body().string().equals("[]")) {
                                         Intent intent = new Intent(LoginActivity.this, BottomBar.class);
                                         startActivity(intent);
                                     }

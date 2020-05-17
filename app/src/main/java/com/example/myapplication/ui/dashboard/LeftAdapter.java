@@ -12,7 +12,7 @@ import com.example.myapplication.R;
 public class LeftAdapter extends BaseAdapter {
 
     private Context context;
-    String data[]={"蔬菜1","水果1","姓氏1","蔬菜2","水果2","姓氏2","蔬菜3","水果3","姓氏3"};
+    String data[]={"果茶","纯茶","咖啡","奶茶"};
 
     public LeftAdapter(Context context) {
         super();

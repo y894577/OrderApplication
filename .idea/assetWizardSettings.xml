@@ -197,8 +197,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="icon_shoppingcar" />
-                            <entry key="sourceFile" value="C:\Users\87643" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="switch_thumb" />
+                            <entry key="sourceFile" value="C:\Users\87643\AppData\Local\Temp\方块.svg" />
                           </map>
                         </option>
                       </PersistentState>
