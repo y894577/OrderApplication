@@ -8,11 +8,19 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 
+import java.util.ArrayList;
+
 
 public class LeftAdapter extends BaseAdapter {
 
     private Context context;
-    String data[]={"果茶","纯茶","咖啡","奶茶"};
+    ArrayList<String> data = new ArrayList<>();
+
+    public void updateData(ArrayList<String> lists){
+        data.clear();
+        data.addAll(lists);
+        this.notifyDataSetChanged();
+    }
 
     public LeftAdapter(Context context) {
         super();
@@ -21,7 +29,7 @@ public class LeftAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return data.length;
+        return data.size();
     }
 
     @Override
@@ -46,7 +54,7 @@ public class LeftAdapter extends BaseAdapter {
             vh = (ViewHold) convertView.getTag();
         }
         vh.tv_left.setTag(position);
-        vh.tv_left.setText(data[position]);
+        vh.tv_left.setText(data.get(position));
         return convertView;
     }
 

@@ -94,9 +94,6 @@ public class DashboardFragment extends Fragment {
         lv_right.setAdapter(rightAdapter);
 
 
-
-
-
         try {
             ArrayList<String> title = new ArrayList<>();
             ArrayList<BaseData> lists = new ArrayList<BaseData>();
@@ -124,6 +121,7 @@ public class DashboardFragment extends Fragment {
                     for (int i = 0; i < obj.size(); i++) {
                         String tag = obj.get(i).getAsString();
                         title.add(tag);
+
                         Request request_other = new Request.Builder()
                                 .url("http://192.168.0.104:8088/getGoodsListByTag?tag=" + tag)
                                 .get()
@@ -148,17 +146,18 @@ public class DashboardFragment extends Fragment {
                                     lists.add(data);
 //                                    Log.d("data", name + id + tag);
                                 }
-                                showResponse(lists, root, rightAdapter);
+                                showRightResponse(lists, rightAdapter);
+                                showLeftResponse(title, leftAdapter);
                             }
                         });
                     }
+
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
         }
-
 
 
         //定义button
@@ -189,13 +188,23 @@ public class DashboardFragment extends Fragment {
     }
 
 
-    private void showResponse(final ArrayList<BaseData> response, View root, RightAdapter rightAdapter) {
+    private void showLeftResponse(final ArrayList<String> response, LeftAdapter leftAdapter) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                leftAdapter.updateData(response);
+            }
+        });
+    }
+
+    private void showRightResponse(final ArrayList<BaseData> response, RightAdapter rightAdapter) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 // 在这里进行UI操作，将结果显示到界面上
                 Log.d("msg", response.get(0).getTag());
                 rightAdapter.updateData(response);
+
 
                 showTitle = new ArrayList<String>();
                 for (int i = 0; i < response.size(); i++) {
