@@ -34,6 +34,7 @@ import com.example.myapplication.Order.OrderActivity;
 import com.example.myapplication.R;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -65,8 +66,7 @@ public class DashboardFragment extends Fragment {
     private ListView lv_left;
     private ListView lv_right;
     private TextView tv_title;
-    private TextView calculate;
-    private ImageView add_to_car;
+    private FloatingActionButton calculate;
     private String msg;
 
     private ArrayList<String> showTitle;
@@ -144,7 +144,6 @@ public class DashboardFragment extends Fragment {
                                     String tag = item.get("tag").toString();
                                     BaseData data = new BaseData(id, name, price, tag);
                                     lists.add(data);
-//                                    Log.d("data", name + id + tag);
                                 }
                                 showRightResponse(lists, rightAdapter);
                                 showLeftResponse(title, leftAdapter);
@@ -163,7 +162,6 @@ public class DashboardFragment extends Fragment {
         //定义button
 
         calculate = root.findViewById(R.id.calculate);
-        add_to_car = root.findViewById(R.id.add_to_car);
 
 
         return root;
@@ -177,7 +175,6 @@ public class DashboardFragment extends Fragment {
             Intent intent = new Intent(getActivity(), OrderActivity.class);
             startActivity(intent);
         });
-
 
     }
 
@@ -204,8 +201,6 @@ public class DashboardFragment extends Fragment {
                 // 在这里进行UI操作，将结果显示到界面上
                 Log.d("msg", response.get(0).getTag());
                 rightAdapter.updateData(response);
-
-
                 showTitle = new ArrayList<String>();
                 for (int i = 0; i < response.size(); i++) {
                     if (i == 0) {
