@@ -36,7 +36,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/D:/jetbrain/apps/AndroidStudio/ch-0/191.6010548/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_add_shopping_cart_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/D:/jetbrain/apps/AndroidStudio/ch-0/191.6010548/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_account_circle_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -70,9 +70,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="icon_shoppingcar" />
+                                      <entry key="outputName" value="icon_user" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="111111" />
+                                      <entry key="themeColor" value="2d9168" />
                                     </map>
                                   </option>
                                 </PersistentState>

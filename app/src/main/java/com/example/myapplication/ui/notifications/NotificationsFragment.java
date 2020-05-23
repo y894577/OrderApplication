@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.myapplication.MyApp;
 import com.example.myapplication.Order.OrderActivity;
 import com.example.myapplication.Order.OrderAdapter;
 import com.example.myapplication.R;
@@ -39,6 +40,7 @@ public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
     private ListView order_list;
+    private MyApp myApp;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -54,6 +56,9 @@ public class NotificationsFragment extends Fragment {
         order_list.setAdapter(orderListAdapter);
 
         ArrayList<OrderData> lists = new ArrayList<>();
+
+        myApp = (MyApp) getActivity().getApplication();
+        String userID = myApp.getUserID();
 
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()

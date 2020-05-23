@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.BottomBar;
+import com.example.myapplication.MyApp;
 import com.example.myapplication.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -38,6 +39,7 @@ public class OrderActivity extends AppCompatActivity {
 
     private ListView shopping_car_list;
     private TextView sum_money;
+    private MyApp myApp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,9 +51,12 @@ public class OrderActivity extends AppCompatActivity {
         sum_money = findViewById(R.id.sum_money);
         ArrayList<ShoppingCarData> list = new ArrayList<>();
 
+        myApp = (MyApp) getApplication();
+        String userID = myApp.getUserID();
+
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
-                .add("userID", "123456")
+                .add("userID", userID)
                 .build();
         Request request = new Request.Builder()
                 .url("http://192.168.0.104:8088/getShoppingCar")
@@ -92,9 +97,10 @@ public class OrderActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int which) {
 
+
                             OkHttpClient clientOrder = new OkHttpClient();
                             RequestBody requestBodyOrder = new FormBody.Builder()
-                                    .add("userID", "123456")
+                                    .add("userID", userID)
                                     .add("sum",sum_money.getText().toString())
                                     .build();
                             Request requestOrder = new Request.Builder()
@@ -115,7 +121,7 @@ public class OrderActivity extends AppCompatActivity {
 
                             OkHttpClient clientCar = new OkHttpClient();
                             RequestBody requestBodyCar = new FormBody.Builder()
-                                    .add("userID","123456")
+                                    .add("userID",userID)
                                     .build();
                             Request requestCar = new Request.Builder()
                                     .url("http://192.168.0.104:8088/clearCar")
@@ -130,6 +136,7 @@ public class OrderActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call call, Response response) throws IOException {
                                     Log.d("msg","clear");
+                                    //这个地方需要发送广播，暂时未实现
                                 }
                             });
 
@@ -144,7 +151,7 @@ public class OrderActivity extends AppCompatActivity {
     private void setList(ArrayList<ShoppingCarData> list, OrderAdapter orderAdapter) {
         this.runOnUiThread(() -> {
             orderAdapter.updateData(list);
-            sum_money.setText("共计：" + orderAdapter.getSumMoney());
+            sum_money.setText("共计：" + orderAdapter.getSumMoney()+" 元");
         });
     }
 }

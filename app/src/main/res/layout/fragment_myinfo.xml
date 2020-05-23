@@ -17,11 +17,18 @@
             android:layout_height="match_parent"
             android:background="@drawable/card_style">
 
+
+            <ImageView
+                android:src="@drawable/icon_user"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_vertical"/>
+
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/myinfo_userid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/icon_index_order"
+                android:drawablePadding="10dp"
                 android:paddingVertical="50dp"
                 android:text="TextView"
                 android:textSize="40dp" />
@@ -37,9 +44,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:layout_weight="1"
                 android:padding="30dp">
 
 
@@ -87,46 +94,46 @@
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/list_style"
                     android:layout_marginVertical="3dp"
-                    android:textSize="18dp"
+                    android:background="@drawable/list_style"
                     android:paddingHorizontal="40dp"
                     android:paddingVertical="10dp"
-                    android:text="@string/myinfo_gift" />
+                    android:text="@string/myinfo_gift"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/list_style"
                     android:layout_marginVertical="3dp"
-                    android:textSize="18dp"
+                    android:background="@drawable/list_style"
                     android:paddingHorizontal="40dp"
                     android:paddingVertical="10dp"
-                    android:text="@string/myinfo_exchange" />
+                    android:text="@string/myinfo_exchange"
+                    android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/textView11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/list_style"
                     android:layout_marginVertical="3dp"
-                    android:textSize="18dp"
+                    android:background="@drawable/list_style"
                     android:paddingHorizontal="40dp"
                     android:paddingVertical="10dp"
-                    android:text="@string/myinfo_service" />
+                    android:text="@string/myinfo_service"
+                    android:textSize="18dp" />
 
 
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/list_style"
                     android:layout_marginVertical="3dp"
-                    android:textSize="18dp"
+                    android:background="@drawable/list_style"
                     android:paddingHorizontal="40dp"
                     android:paddingVertical="10dp"
-                    android:text="@string/myinfo_more" />
+                    android:text="@string/myinfo_more"
+                    android:textSize="18dp" />
             </LinearLayout>
         </TableRow>
 

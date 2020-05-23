@@ -12,24 +12,27 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.myapplication.MyApp;
 import com.example.myapplication.R;
 import com.example.myapplication.ui.notifications.NotificationsViewModel;
 
 public class MyinfoFragment extends Fragment {
     private MyinfoViewModel myinfoViewModel;
+    private MyApp myApp;
+    private TextView myinfo_userid;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         myinfoViewModel =
                 ViewModelProviders.of(this).get(MyinfoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_myinfo, container, false);
-//        final TextView textView = root.findViewById(R.id.text_myinfo);
-//        myinfoViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
+
+        myApp = (MyApp) getActivity().getApplication();
+        String userID = myApp.getUserID();
+
+        myinfo_userid = root.findViewById(R.id.myinfo_userid);
+        myinfo_userid.setText(userID);
+
         return root;
     }
 }

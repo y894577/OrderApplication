@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.myapplication.BottomBar;
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.MyApp;
 import com.example.myapplication.R;
 
 import java.io.IOException;
@@ -40,6 +41,7 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    private MyApp myApp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
 //        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -125,6 +128,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                loadingProgressBar.setVisibility(View.VISIBLE);
+
+                myApp = (MyApp) getApplication();
+                myApp.setUserID("123456");
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -142,6 +149,8 @@ public class LoginActivity extends AppCompatActivity {
                                     .url("http://192.168.0.104:8088/login")
                                     .post(requestBody)
                                     .build();
+
+
                             client.newCall(request).enqueue(new Callback() {
                                 @Override
                                 public void onFailure(Call call, IOException e) {

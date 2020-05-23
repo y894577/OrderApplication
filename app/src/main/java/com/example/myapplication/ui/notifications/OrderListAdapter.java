@@ -58,8 +58,8 @@ public class OrderListAdapter extends BaseAdapter {
 
 
             vh.status.setText("状态：已完成");
-            vh.time.setText(data.get(position).getTime());
-            vh.total_money.setText(String.valueOf(data.get(position).getMoney()));
+            vh.time.setText("时间："+data.get(position).getTime());
+            vh.total_money.setText("￥ "+String.valueOf(data.get(position).getMoney()));
 
         } else {
             vh = (OrderListAdapter.ViewHold) convertView.getTag();
