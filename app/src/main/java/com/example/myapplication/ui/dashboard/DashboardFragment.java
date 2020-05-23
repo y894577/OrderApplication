@@ -186,41 +186,32 @@ public class DashboardFragment extends Fragment {
 
 
     private void showLeftResponse(final ArrayList<String> response, LeftAdapter leftAdapter) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                leftAdapter.updateData(response);
-            }
-        });
+        getActivity().runOnUiThread(() -> leftAdapter.updateData(response));
     }
 
     private void showRightResponse(final ArrayList<BaseData> response, RightAdapter rightAdapter) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                // 在这里进行UI操作，将结果显示到界面上
-                Log.d("msg", response.get(0).getTag());
-                rightAdapter.updateData(response);
-                showTitle = new ArrayList<String>();
-                for (int i = 0; i < response.size(); i++) {
-                    if (i == 0) {
-                        showTitle.add(i + "");
-                    } else if (!TextUtils.equals(response.get(i).getTag(),
-                            response.get(i - 1).getTag())) {
-                        showTitle.add(i + 1 + "");
-                    }
+        getActivity().runOnUiThread(() -> {
+            // 在这里进行UI操作，将结果显示到界面上
+            rightAdapter.updateData(response);
+            showTitle = new ArrayList<String>();
+            for (int i = 0; i < response.size(); i++) {
+                if (i == 0) {
+                    showTitle.add(i + "");
+                } else if (!TextUtils.equals(response.get(i).getTag(),
+                        response.get(i - 1).getTag())) {
+                    showTitle.add(i + 1 + "");
                 }
-                lv_left.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                            long arg3) {
-                        int firstVisibleItem = lv_right.getFirstVisiblePosition();
-//                右边Listview当前第一个可见条目的position
-                        updateLeftListview(firstVisibleItem, arg2);
-                        lv_right.setSelection(Integer.parseInt(showTitle.get(arg2)));
-                    }
-                });
             }
+            lv_left.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                        long arg3) {
+                    int firstVisibleItem = lv_right.getFirstVisiblePosition();
+//                右边Listview当前第一个可见条目的position
+                    updateLeftListview(firstVisibleItem, arg2);
+                    lv_right.setSelection(Integer.parseInt(showTitle.get(arg2)));
+                }
+            });
         });
     }
 

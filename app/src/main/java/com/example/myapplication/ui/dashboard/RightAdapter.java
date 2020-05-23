@@ -71,31 +71,33 @@ public class RightAdapter extends BaseAdapter {
             convertView = View.inflate(context, R.layout.item_right, null);
             vh = new ViewHold();
             convertView.setTag(vh);
-            vh.tv_content = (TextView) convertView
-                    .findViewById(R.id.tv_content);
-            vh.tv_right = (TextView) convertView.findViewById(R.id.tv_right);
+            vh.tv_content = convertView.findViewById(R.id.tv_content);
+            vh.tv_price = convertView.findViewById(R.id.tv_price);
+            vh.tv_right = convertView.findViewById(R.id.tv_right);
 
             vh.add_to_car = convertView.findViewById(R.id.add_to_car);
 
         } else {
             vh = (ViewHold) convertView.getTag();
         }
-        vh.tv_content.setText(data.get(position).getName());
+        vh.tv_content.setText(data.get(position).getName().replace("\"", ""));
+        vh.tv_price.setText("￥ "+ data.get(position).getPrice());
 
         if (position == 0) {
             vh.tv_right.setText(data.get(position).getTag());
 
         } else if (!TextUtils.equals(data.get(position).getTag(),
                 data.get(position - 1).getTag())) {
-            vh.tv_content.setText(data.get(position).getName());
+            vh.tv_content.setText(data.get(position).getName().replace("\"", ""));
+            vh.tv_price.setText("￥ "+ data.get(position).getPrice());
         }
 
         vh.add_to_car.setOnClickListener(v -> {
-            Log.d("ID", data.get(position).getId());
             OkHttpClient client = new OkHttpClient();
             RequestBody requestBody = new FormBody.Builder()
                     .add("userID", "123456")
                     .add("goodsID", data.get(position).getId())
+                    .add("price", String.valueOf(data.get(position).getPrice()))
                     .build();
             Request request = new Request.Builder()
                     .url("http://192.168.0.104:8088/insertGoodsToShoppingCar")
@@ -114,22 +116,15 @@ public class RightAdapter extends BaseAdapter {
                     Looper.loop();
                 }
             });
-
-
         });
-
-
         return convertView;
-    }
-
-    private void showToast(String response){
-
     }
 
 
     public class ViewHold {
         TextView tv_content;
         TextView tv_right;
+        TextView tv_price;
         ImageView add_to_car;
     }
 

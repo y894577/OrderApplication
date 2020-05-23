@@ -60,6 +60,5 @@ public class LeftAdapter extends BaseAdapter {
 
     public class ViewHold {
         TextView tv_left;
-
     }
 }
