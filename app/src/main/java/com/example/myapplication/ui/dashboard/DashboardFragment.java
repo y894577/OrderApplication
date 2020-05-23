@@ -165,6 +165,7 @@ public class DashboardFragment extends Fragment {
 
 
         return root;
+
     }
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

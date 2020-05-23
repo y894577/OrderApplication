@@ -53,7 +53,7 @@ public class NotificationsFragment extends Fragment {
 
         order_list.setAdapter(orderListAdapter);
 
-        ArrayList<OrderData> lists = new ArrayList<OrderData>();
+        ArrayList<OrderData> lists = new ArrayList<>();
 
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
@@ -95,7 +95,7 @@ public class NotificationsFragment extends Fragment {
 
     }
 
-    public void showOrderList(final ArrayList<OrderData> orderData, OrderListAdapter orderListAdapter) {
+    private void showOrderList(final ArrayList<OrderData> orderData, OrderListAdapter orderListAdapter) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

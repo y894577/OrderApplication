@@ -51,7 +51,7 @@ public class OrderAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHold vh = null;
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.item_order, null);
+            convertView = View.inflate(context, R.layout.item_shoppingcar, null);
             vh = new OrderAdapter.ViewHold();
             convertView.setTag(vh);
 
@@ -62,7 +62,6 @@ public class OrderAdapter extends BaseAdapter {
             vh.sh_content.setText(data.get(position).getName().replace("\"", ""));
             vh.sh_price.setText("￥ " + data.get(position).getPrice());
             vh.number.setText("数量：" + data.get(position).getNumber());
-
 
         } else {
             vh = (OrderAdapter.ViewHold) convertView.getTag();
