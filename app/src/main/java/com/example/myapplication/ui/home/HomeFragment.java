@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.myapplication.Address.AddressActivity;
 import com.example.myapplication.BottomBar;
 import com.example.myapplication.R;
 
@@ -30,6 +32,7 @@ public class HomeFragment extends Fragment {
     };
 
     private AppCompatTextView order;
+    private AppCompatTextView take_out;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,6 +42,8 @@ public class HomeFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
         order = root.findViewById(R.id.order);
+
+        take_out = root.findViewById(R.id.take_out);
 
         return root;
     }
@@ -50,9 +55,17 @@ public class HomeFragment extends Fragment {
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("tag", "success");
                 Navigation.findNavController(v).navigate(R.id.navigation_dashboard);
             }
         });
+
+        take_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddressActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
