@@ -2,11 +2,13 @@ package com.example.myapplication.Address;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -47,7 +49,7 @@ public class AddressActivity extends AppCompatActivity {
         ArrayList<AddressData> list = new ArrayList<>();
 
         myApp = (MyApp) getApplication();
-        String userID = myApp.getUserID();
+        final String userID = myApp.getUserID();
 
         add_address = findViewById(R.id.add_address);
         address_list = findViewById(R.id.address_list);
@@ -99,11 +101,39 @@ public class AddressActivity extends AppCompatActivity {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("msg", input.getText().toString());
+                        OkHttpClient clientAdd = new OkHttpClient();
+                        RequestBody requestBodyAdd = new FormBody.Builder()
+                                .add("userID",userID)
+                                .add("address",input.getText().toString())
+                                .build();
+                        Request request = new Request.Builder()
+                                .url("http://192.168.0.104:8088/addAddress")
+                                .post(requestBodyAdd)
+                                .build();
+
+                        AddressData data = new AddressData(userID,input.getText().toString(),false);
+
+                        clientAdd.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                Looper.prepare();
+                                Toast.makeText(AddressActivity.this, response.body().string(), Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                            }
+                        });
+                       addressAdapter.add(data);
                     }
                 });
                 builder.show();
+
+
             }
         });
     }
+
 }

@@ -22,6 +22,11 @@ public class AddressAdapter extends BaseAdapter {
         this.context = context;
     }
 
+    public void add(AddressData list){
+        data.add(list);
+        this.notifyDataSetChanged();
+    }
+
     public void updateData(ArrayList<AddressData> lists) {
         data.clear();
         data.addAll(lists);
