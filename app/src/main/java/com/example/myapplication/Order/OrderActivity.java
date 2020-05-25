@@ -1,18 +1,26 @@
 package com.example.myapplication.Order;
 
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.myapplication.BottomBar;
 import com.example.myapplication.MyApp;
@@ -39,6 +47,8 @@ public class OrderActivity extends AppCompatActivity {
 
     private ListView shopping_car_list;
     private TextView sum_money;
+    private Switch order_switch;
+    private TextView order_address;
     private MyApp myApp;
 
     @Override
@@ -49,10 +59,18 @@ public class OrderActivity extends AppCompatActivity {
         shopping_car_list = findViewById(R.id.shopping_car_list);
         shopping_car_list.setAdapter(orderAdapter);
         sum_money = findViewById(R.id.sum_money);
+        order_switch = findViewById(R.id.order_switch);
+        order_address = findViewById(R.id.order_address);
         ArrayList<ShoppingCarData> list = new ArrayList<>();
 
         myApp = (MyApp) getApplication();
         String userID = myApp.getUserID();
+
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.myapplication.ACTION_ORDER");
+        OrderReciver orderReciver = new OrderReciver();
+        registerReceiver(orderReciver, intentFilter);
 
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
@@ -98,60 +116,109 @@ public class OrderActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int which) {
 
 
-                            OkHttpClient clientOrder = new OkHttpClient();
-                            RequestBody requestBodyOrder = new FormBody.Builder()
-                                    .add("userID", userID)
-                                    .add("sum",sum_money.getText().toString())
-                                    .build();
-                            Request requestOrder = new Request.Builder()
-                                    .url("http://192.168.0.104:8088/submitOrder")
-                                    .post(requestBodyOrder)
-                                    .build();
-                            clientOrder.newCall(requestOrder).enqueue(new Callback() {
-                                @Override
-                                public void onFailure(Call call, IOException e) {
+                            Intent intentorder = new Intent();
+                            intentorder.setAction("com.example.myapplication.ACTION_ORDER");
+                            intentorder.putExtra("data", "order");
+                            sendBroadcast(intentorder);
 
-                                }
+                            Intent intent = new Intent(OrderActivity.this, OrderService.class);
+                            intent.setAction("android.intent.action.RESPOND_VIA_MESSAGE");
+                            OrderActivity.this.startService(intent);
 
-                                @Override
-                                public void onResponse(Call call, Response response) throws IOException {
-                                    Log.d("msg",response.body().string());
-                                }
-                            });
-
-                            OkHttpClient clientCar = new OkHttpClient();
-                            RequestBody requestBodyCar = new FormBody.Builder()
-                                    .add("userID",userID)
-                                    .build();
-                            Request requestCar = new Request.Builder()
-                                    .url("http://192.168.0.104:8088/clearCar")
-                                    .post(requestBodyCar)
-                                    .build();
-                            clientCar.newCall(requestCar).enqueue(new Callback() {
-                                @Override
-                                public void onFailure(Call call, IOException e) {
-
-                                }
-
-                                @Override
-                                public void onResponse(Call call, Response response) throws IOException {
-                                    Log.d("msg","clear");
-                                    //这个地方需要发送广播，暂时未实现
-                                }
-                            });
-
-                            Intent intent = new Intent(OrderActivity.this, BottomBar.class);
-                            startActivity(intent);
+//                            OkHttpClient clientOrder = new OkHttpClient();
+//                            RequestBody requestBodyOrder = new FormBody.Builder()
+//                                    .add("userID", userID)
+//                                    .add("sum",sum_money.getText().toString())
+//                                    .build();
+//                            Request requestOrder = new Request.Builder()
+//                                    .url("http://192.168.0.104:8088/submitOrder")
+//                                    .post(requestBodyOrder)
+//                                    .build();
+//                            clientOrder.newCall(requestOrder).enqueue(new Callback() {
+//                                @Override
+//                                public void onFailure(Call call, IOException e) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onResponse(Call call, Response response) throws IOException {
+//                                    Log.d("msg",response.body().string());
+//                                }
+//                            });
+//
+//                            OkHttpClient clientCar = new OkHttpClient();
+//                            RequestBody requestBodyCar = new FormBody.Builder()
+//                                    .add("userID",userID)
+//                                    .build();
+//                            Request requestCar = new Request.Builder()
+//                                    .url("http://192.168.0.104:8088/clearCar")
+//                                    .post(requestBodyCar)
+//                                    .build();
+//                            clientCar.newCall(requestCar).enqueue(new Callback() {
+//                                @Override
+//                                public void onFailure(Call call, IOException e) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onResponse(Call call, Response response) throws IOException {
+//                                    //这个地方需要发送广播，暂时未实现
+//                                    Log.d("msg","clear");
+//                                }
+//                            });
+//
+//
+//
+//                            Intent intent = new Intent(OrderActivity.this, BottomBar.class);
+//                            startActivity(intent);
                         }
                     });
             dialog.show();
+
+
+        });
+
+        order_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    order_address.setVisibility(View.VISIBLE);
+                    OkHttpClient clientAddress = new OkHttpClient();
+                    RequestBody requestBodyAddress = new FormBody.Builder()
+                            .add("userID", userID)
+                            .build();
+                    Request requestOrder = new Request.Builder()
+                            .url("http://192.168.0.104:8088/getDefaultAddress")
+                            .post(requestBodyAddress)
+                            .build();
+                    clientAddress.newCall(requestOrder).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            setAddress(response.body().string(), orderAdapter);
+                        }
+                    });
+                } else {
+                    order_address.setVisibility(View.INVISIBLE);
+                }
+            }
         });
     }
 
     private void setList(ArrayList<ShoppingCarData> list, OrderAdapter orderAdapter) {
         this.runOnUiThread(() -> {
             orderAdapter.updateData(list);
-            sum_money.setText("共计：" + orderAdapter.getSumMoney()+" 元");
+            sum_money.setText("共计：" + orderAdapter.getSumMoney() + " 元");
+        });
+    }
+
+    private void setAddress(String address, OrderAdapter orderAdapter) {
+        this.runOnUiThread(() -> {
+            order_address.setText("地址：" + address);
         });
     }
 }

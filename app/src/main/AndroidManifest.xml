@@ -28,10 +28,25 @@
         </activity>
         <activity
             android:name=".Order.OrderActivity"
-            android:label="订单"></activity>
+            android:label="订单">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_ORDER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Address.AddressActivity"
             android:label="地址"></activity>
+
+        <service
+            android:name=".Order.OrderService"
+            android:label="OrderService"
+            android:enabled="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE"  />
+
+            </intent-filter>
+        </service>
     </application>
 
 

@@ -1,27 +1,19 @@
 package com.example.myapplication;
 
-import android.content.Context;
-import android.graphics.Typeface;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.example.myapplication.Order.OrderReciver;
 import com.example.myapplication.ui.dashboard.DashboardAdapter;
 import com.example.myapplication.ui.dashboard.DashboardFragment;
-import com.example.myapplication.ui.dashboard.LeftAdapter;
-import com.example.myapplication.ui.dashboard.RightAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import java.util.ArrayList;
 
 public class BottomBar extends AppCompatActivity {
 
@@ -48,6 +40,8 @@ public class BottomBar extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         initData();
+
+
 
 
     }

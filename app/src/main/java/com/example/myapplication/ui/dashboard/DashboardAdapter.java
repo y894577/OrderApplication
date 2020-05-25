@@ -38,14 +38,6 @@ public class DashboardAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.fragment_dashboard, null);
-//        TextView tv = (TextView) convertView.findViewById(R.id.tv);
-//        mPosition = position;
-//        tv.setText(strings[position]);
-//        if (position == TestActivity.mPosition) {
-//            convertView.setBackgroundResource(R.mipmap.checkline);
-//        } else {
-//            convertView.setBackgroundColor(Color.parseColor("#ADADAD"));
-//        }
         return convertView;
 
     }

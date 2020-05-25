@@ -130,8 +130,6 @@ public class AddressActivity extends AppCompatActivity {
                     }
                 });
                 builder.show();
-
-
             }
         });
     }
