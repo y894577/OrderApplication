@@ -62,14 +62,20 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/calculate"
-            android:layout_width="70dp"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom|end"
-            android:layout_marginStart="16dp"
+            android:layout_gravity="bottom|start"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="#008577"
+            android:src="@drawable/ic_local_grocery_store_black_24dp"
             app:elevation="8dp" />
+
+
+
+
 
     </FrameLayout>
 

@@ -15,6 +15,7 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="253dp"
+            android:src="@drawable/milk"
             tools:srcCompat="@tools:sample/backgrounds/scenic[5]" />
 
         <TableRow
@@ -42,7 +43,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="门店自取"
-                    android:drawableRight="@drawable/icon_index_order"/>
+                    android:drawableRight="@drawable/icon_milk"
+                    />
 
 
 
@@ -58,7 +60,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="外卖到家"
-                    android:drawableRight="@drawable/icon_index_order"/>
+                    android:drawableRight="@drawable/icon_scooter"/>
 
 
             </LinearLayout>

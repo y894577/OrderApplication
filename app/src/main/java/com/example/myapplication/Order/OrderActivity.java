@@ -121,56 +121,56 @@ public class OrderActivity extends AppCompatActivity {
                             intentorder.putExtra("data", "order");
                             sendBroadcast(intentorder);
 
-                            Intent intent = new Intent(OrderActivity.this, OrderService.class);
-                            intent.setAction("android.intent.action.RESPOND_VIA_MESSAGE");
-                            OrderActivity.this.startService(intent);
+                            Intent intentSer = new Intent(OrderActivity.this, OrderService.class);
+                            intentSer.setAction("android.intent.action.RESPOND_VIA_MESSAGE");
+                            OrderActivity.this.startService(intentSer);
 
-//                            OkHttpClient clientOrder = new OkHttpClient();
-//                            RequestBody requestBodyOrder = new FormBody.Builder()
-//                                    .add("userID", userID)
-//                                    .add("sum",sum_money.getText().toString())
-//                                    .build();
-//                            Request requestOrder = new Request.Builder()
-//                                    .url("http://192.168.0.104:8088/submitOrder")
-//                                    .post(requestBodyOrder)
-//                                    .build();
-//                            clientOrder.newCall(requestOrder).enqueue(new Callback() {
-//                                @Override
-//                                public void onFailure(Call call, IOException e) {
-//
-//                                }
-//
-//                                @Override
-//                                public void onResponse(Call call, Response response) throws IOException {
-//                                    Log.d("msg",response.body().string());
-//                                }
-//                            });
-//
-//                            OkHttpClient clientCar = new OkHttpClient();
-//                            RequestBody requestBodyCar = new FormBody.Builder()
-//                                    .add("userID",userID)
-//                                    .build();
-//                            Request requestCar = new Request.Builder()
-//                                    .url("http://192.168.0.104:8088/clearCar")
-//                                    .post(requestBodyCar)
-//                                    .build();
-//                            clientCar.newCall(requestCar).enqueue(new Callback() {
-//                                @Override
-//                                public void onFailure(Call call, IOException e) {
-//
-//                                }
-//
-//                                @Override
-//                                public void onResponse(Call call, Response response) throws IOException {
-//                                    //这个地方需要发送广播，暂时未实现
-//                                    Log.d("msg","clear");
-//                                }
-//                            });
-//
-//
-//
-//                            Intent intent = new Intent(OrderActivity.this, BottomBar.class);
-//                            startActivity(intent);
+                            OkHttpClient clientOrder = new OkHttpClient();
+                            RequestBody requestBodyOrder = new FormBody.Builder()
+                                    .add("userID", userID)
+                                    .add("sum",sum_money.getText().toString())
+                                    .build();
+                            Request requestOrder = new Request.Builder()
+                                    .url("http://192.168.0.104:8088/submitOrder")
+                                    .post(requestBodyOrder)
+                                    .build();
+                            clientOrder.newCall(requestOrder).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    Log.d("msg",response.body().string());
+                                }
+                            });
+
+                            OkHttpClient clientCar = new OkHttpClient();
+                            RequestBody requestBodyCar = new FormBody.Builder()
+                                    .add("userID",userID)
+                                    .build();
+                            Request requestCar = new Request.Builder()
+                                    .url("http://192.168.0.104:8088/clearCar")
+                                    .post(requestBodyCar)
+                                    .build();
+                            clientCar.newCall(requestCar).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    //这个地方需要发送广播，暂时未实现
+                                    Log.d("msg","clear");
+                                }
+                            });
+
+
+
+                            Intent intent = new Intent(OrderActivity.this, BottomBar.class);
+                            startActivity(intent);
                         }
                     });
             dialog.show();

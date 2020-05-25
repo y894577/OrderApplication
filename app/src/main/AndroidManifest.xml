@@ -19,7 +19,8 @@
         <activity
             android:name=".BottomBar"
             android:label="@string/title_activity_bottom_bar"></activity>
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name=".Login.LoginActivity"
+            android:label="登录">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

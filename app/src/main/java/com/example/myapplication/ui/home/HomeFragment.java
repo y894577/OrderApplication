@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.home;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,6 +45,16 @@ public class HomeFragment extends Fragment {
         order = root.findViewById(R.id.order);
 
         take_out = root.findViewById(R.id.take_out);
+
+
+        Drawable drawable1 = getResources().getDrawable(R.drawable.icon_milk);
+        Drawable drawable2 = getResources().getDrawable(R.drawable.icon_scooter);
+        // 设置图片的大小
+        drawable1.setBounds(0, 0, 100, 100);
+        drawable2.setBounds(0, 0, 100, 100);
+        order.setCompoundDrawables(null, null, drawable1, null);
+
+        take_out.setCompoundDrawables(null, null, drawable2, null);
 
         return root;
     }
