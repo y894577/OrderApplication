@@ -1,5 +1,6 @@
 package com.example.myapplication.Order;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -23,6 +24,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.myapplication.BottomBar;
+import com.example.myapplication.Contact.ContactActivity;
 import com.example.myapplication.MyApp;
 import com.example.myapplication.R;
 import com.google.gson.JsonArray;
@@ -49,6 +51,9 @@ public class OrderActivity extends AppCompatActivity {
     private TextView sum_money;
     private Switch order_switch;
     private TextView order_address;
+    private TextView phone;
+    private Button add_phone;
+    private Button pay_order;
     private MyApp myApp;
 
     @Override
@@ -61,11 +66,15 @@ public class OrderActivity extends AppCompatActivity {
         sum_money = findViewById(R.id.sum_money);
         order_switch = findViewById(R.id.order_switch);
         order_address = findViewById(R.id.order_address);
+        add_phone = findViewById(R.id.add_phone);
+        pay_order = findViewById(R.id.pay_order);
+        phone = findViewById(R.id.phone);
         ArrayList<ShoppingCarData> list = new ArrayList<>();
 
         myApp = (MyApp) getApplication();
         String userID = myApp.getUserID();
 
+        phone.setText("电话：");
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.example.myapplication.ACTION_ORDER");
@@ -106,7 +115,19 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        Button pay_order = findViewById(R.id.pay_order);
+        add_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderActivity.this, ContactActivity.class);
+//                intent.setAction(intent.ACTION_PICK);
+//                intent.setType("vnd.android.cursor.dir/phone");
+//                startActivityForResult(intent, 0x100);
+                startActivityForResult(intent, 1);
+
+            }
+        });
+
+
         pay_order.setOnClickListener(v -> {
             final String[] item = {"确定"};
             AlertDialog.Builder dialog = new AlertDialog.Builder(OrderActivity.this)
@@ -128,7 +149,7 @@ public class OrderActivity extends AppCompatActivity {
                             OkHttpClient clientOrder = new OkHttpClient();
                             RequestBody requestBodyOrder = new FormBody.Builder()
                                     .add("userID", userID)
-                                    .add("sum",sum_money.getText().toString())
+                                    .add("sum", sum_money.getText().toString())
                                     .build();
                             Request requestOrder = new Request.Builder()
                                     .url("http://192.168.0.104:8088/submitOrder")
@@ -142,13 +163,13 @@ public class OrderActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onResponse(Call call, Response response) throws IOException {
-                                    Log.d("msg",response.body().string());
+                                    Log.d("msg", response.body().string());
                                 }
                             });
 
                             OkHttpClient clientCar = new OkHttpClient();
                             RequestBody requestBodyCar = new FormBody.Builder()
-                                    .add("userID",userID)
+                                    .add("userID", userID)
                                     .build();
                             Request requestCar = new Request.Builder()
                                     .url("http://192.168.0.104:8088/clearCar")
@@ -163,10 +184,9 @@ public class OrderActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call call, Response response) throws IOException {
                                     //这个地方需要发送广播，暂时未实现
-                                    Log.d("msg","clear");
+                                    Log.d("msg", "clear");
                                 }
                             });
-
 
 
                             Intent intent = new Intent(OrderActivity.this, BottomBar.class);
@@ -220,5 +240,15 @@ public class OrderActivity extends AppCompatActivity {
         this.runOnUiThread(() -> {
             order_address.setText("地址：" + address);
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1) {
+            phone.setText("电话：" + data.getStringExtra("phone"));
+        } else {
+            phone.setText("电话：");
+        }
     }
 }
