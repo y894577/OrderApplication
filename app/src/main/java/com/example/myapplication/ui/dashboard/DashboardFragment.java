@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.BaseData;
 import com.example.myapplication.BottomBar;
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.MyApp;
 import com.example.myapplication.Order.OrderActivity;
 import com.example.myapplication.R;
 
@@ -68,6 +69,7 @@ public class DashboardFragment extends Fragment {
     private TextView tv_title;
     private FloatingActionButton calculate;
     private String msg;
+    private MyApp myApp;
 
     private ArrayList<String> showTitle;
     private ArrayList<BaseData> lists;
@@ -78,6 +80,9 @@ public class DashboardFragment extends Fragment {
                 ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
+        myApp = (MyApp) getActivity().getApplication();
+        String userID = myApp.getUserID();
+        String ip = myApp.getIP();
 
         //加载列表
 
@@ -123,7 +128,7 @@ public class DashboardFragment extends Fragment {
                         title.add(tag);
 
                         Request request_other = new Request.Builder()
-                                .url("http://192.168.0.104:8088/getGoodsListByTag?tag=" + tag)
+                                .url(ip + "/getGoodsListByTag?tag=" + tag)
                                 .get()
                                 .build();
                         client.newCall(request_other).enqueue(new Callback() {

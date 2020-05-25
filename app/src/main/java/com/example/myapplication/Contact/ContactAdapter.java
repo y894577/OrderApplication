@@ -74,10 +74,6 @@ public class ContactAdapter extends BaseAdapter {
             vh.phone_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Activity activity = (Activity) context;
-//                    MyApp myApp = (MyApp)activity.getApplication();
-//                    myApp.setUserPhone(number);
-//                    ((Activity) context).finish();
                     context.returnPhone(number);
                 }
             });

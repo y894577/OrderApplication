@@ -71,6 +71,7 @@
             android:layout_marginBottom="40dp"
             android:backgroundTint="#008577"
             android:src="@drawable/ic_local_grocery_store_black_24dp"
+            app:borderWidth="0dp"
             app:elevation="8dp" />
 
 

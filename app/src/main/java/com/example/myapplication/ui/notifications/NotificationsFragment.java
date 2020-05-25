@@ -59,13 +59,14 @@ public class NotificationsFragment extends Fragment {
 
         myApp = (MyApp) getActivity().getApplication();
         String userID = myApp.getUserID();
+        String ip = myApp.getIP();
 
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("userID", "123456")
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.0.104:8088/showAllOrder")
+                .url(ip + "/showAllOrder")
                 .post(requestBody)
                 .build();
         client.newCall(request).enqueue(new Callback() {

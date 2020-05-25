@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myapplication.Order.OrderAdapter;
@@ -15,10 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressAdapter extends BaseAdapter {
-    private Context context;
+    private AddressActivity context;
     private List<AddressData> data = new ArrayList<>();
 
-    public AddressAdapter(Context context) {
+    public AddressAdapter(AddressActivity context) {
         this.context = context;
     }
 
@@ -57,25 +58,31 @@ public class AddressAdapter extends BaseAdapter {
             convertView.setTag(vh);
 
             vh.address_detail = convertView.findViewById(R.id.address_detail);
-            vh.address_button = convertView.findViewById(R.id.address_button);
+            vh.item_address = convertView.findViewById(R.id.item_address);
 
-            vh.address_detail.setText(data.get(position).getAddress().replace("\"",""));
+            String address = data.get(position).getAddress().replace("\"","");
 
-            if(!data.get(position).isDefault()){
-                vh.address_button.setVisibility(View.VISIBLE);
-            }
-            else {
-                vh.address_button.setVisibility(View.INVISIBLE);
-            }
+            vh.address_detail.setText(address);
+
+            vh.item_address.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.returnAddress(address);
+                }
+            });
+
 
         } else {
             vh = (AddressAdapter.ViewHold) convertView.getTag();
         }
+
+
+
         return convertView;
     }
 
     public class ViewHold{
         TextView address_detail;
-        Button address_button;
+        LinearLayout item_address;
     }
 }

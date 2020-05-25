@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation files('src/libs/gson-2.8.0.jar')
     implementation 'com.google.android.material:material:1.0.0'
+    implementation files('src/libs/BaiduLBS_Android.jar')
 }

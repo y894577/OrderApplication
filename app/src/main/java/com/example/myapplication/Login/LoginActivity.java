@@ -80,13 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                     showLoginFailed(loginResult.getError());
                 }
                 if (loginResult.getSuccess() != null) {
-//                    updateUiWithUser(loginResult.getSuccess());
                     jumpToIndex();
                 }
                 setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-//                finish();
             }
         });
 
@@ -124,26 +120,27 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                loadingProgressBar.setVisibility(View.VISIBLE);
+                String userID = usernameEditText.getText().toString();
+                String userPwd = passwordEditText.getText().toString();
 
                 myApp = (MyApp) getApplication();
-                myApp.setUserID("123456");
+                myApp.setUserID(userID);
+                final String ip = myApp.getIP();
 
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-//                            String userID = usernameEditText.getText().toString();
-//                            String userPwd = passwordEditText.getText().toString();
-                            String userID = "123456";
-                            String userPwd = "123456";
+
+//                            String userID = "123456";
+//                            String userPwd = "123456";
                             OkHttpClient client = new OkHttpClient();
                             RequestBody requestBody = new FormBody.Builder()
                                     .add("userID", userID)
                                     .add("userPwd", userPwd)
                                     .build();
                             Request request = new Request.Builder()
-                                    .url("http://192.168.0.104:8088/login")
+                                    .url(ip + "/login")
                                     .post(requestBody)
                                     .build();
 

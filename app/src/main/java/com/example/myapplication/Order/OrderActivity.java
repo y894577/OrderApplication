@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.myapplication.Address.AddressActivity;
 import com.example.myapplication.BottomBar;
 import com.example.myapplication.Contact.ContactActivity;
 import com.example.myapplication.MyApp;
@@ -54,6 +55,7 @@ public class OrderActivity extends AppCompatActivity {
     private TextView phone;
     private Button add_phone;
     private Button pay_order;
+    private Button order_jump_address;
     private MyApp myApp;
 
     @Override
@@ -69,10 +71,12 @@ public class OrderActivity extends AppCompatActivity {
         add_phone = findViewById(R.id.add_phone);
         pay_order = findViewById(R.id.pay_order);
         phone = findViewById(R.id.phone);
+        order_jump_address = findViewById(R.id.order_jump_address);
         ArrayList<ShoppingCarData> list = new ArrayList<>();
 
         myApp = (MyApp) getApplication();
         String userID = myApp.getUserID();
+        String ip = myApp.getIP();
 
         phone.setText("电话：");
 
@@ -86,7 +90,7 @@ public class OrderActivity extends AppCompatActivity {
                 .add("userID", userID)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.0.104:8088/getShoppingCar")
+                .url(ip + "/getShoppingCar")
                 .post(requestBody)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -119,9 +123,6 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OrderActivity.this, ContactActivity.class);
-//                intent.setAction(intent.ACTION_PICK);
-//                intent.setType("vnd.android.cursor.dir/phone");
-//                startActivityForResult(intent, 0x100);
                 startActivityForResult(intent, 1);
 
             }
@@ -152,7 +153,7 @@ public class OrderActivity extends AppCompatActivity {
                                     .add("sum", sum_money.getText().toString())
                                     .build();
                             Request requestOrder = new Request.Builder()
-                                    .url("http://192.168.0.104:8088/submitOrder")
+                                    .url(ip + "/submitOrder")
                                     .post(requestBodyOrder)
                                     .build();
                             clientOrder.newCall(requestOrder).enqueue(new Callback() {
@@ -172,7 +173,7 @@ public class OrderActivity extends AppCompatActivity {
                                     .add("userID", userID)
                                     .build();
                             Request requestCar = new Request.Builder()
-                                    .url("http://192.168.0.104:8088/clearCar")
+                                    .url(ip + "/clearCar")
                                     .post(requestBodyCar)
                                     .build();
                             clientCar.newCall(requestCar).enqueue(new Callback() {
@@ -183,7 +184,6 @@ public class OrderActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onResponse(Call call, Response response) throws IOException {
-                                    //这个地方需要发送广播，暂时未实现
                                     Log.d("msg", "clear");
                                 }
                             });
@@ -203,28 +203,21 @@ public class OrderActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     order_address.setVisibility(View.VISIBLE);
-                    OkHttpClient clientAddress = new OkHttpClient();
-                    RequestBody requestBodyAddress = new FormBody.Builder()
-                            .add("userID", userID)
-                            .build();
-                    Request requestOrder = new Request.Builder()
-                            .url("http://192.168.0.104:8088/getDefaultAddress")
-                            .post(requestBodyAddress)
-                            .build();
-                    clientAddress.newCall(requestOrder).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            setAddress(response.body().string(), orderAdapter);
-                        }
-                    });
+                    order_jump_address.setVisibility(View.VISIBLE);
+                    order_address.setText("地址：");
                 } else {
                     order_address.setVisibility(View.INVISIBLE);
+                    order_jump_address.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+
+        order_jump_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderActivity.this, AddressActivity.class);
+                startActivityForResult(intent, 2);
+
             }
         });
     }
@@ -236,19 +229,26 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
-    private void setAddress(String address, OrderAdapter orderAdapter) {
-        this.runOnUiThread(() -> {
-            order_address.setText("地址：" + address);
-        });
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 1) {
-            phone.setText("电话：" + data.getStringExtra("phone"));
-        } else {
-            phone.setText("电话：");
+        switch (requestCode) {
+            case 1:
+                if (resultCode == 1) {
+                    phone.setText("电话：" + data.getStringExtra("phone"));
+                } else {
+                    phone.setText("电话：");
+                }
+                break;
+            case 2:
+                if (resultCode == 1) {
+                    order_address.setText("地址：" + data.getStringExtra("address"));
+                } else {
+                    order_address.setText("地址：");
+                }
         }
+
+
     }
 }

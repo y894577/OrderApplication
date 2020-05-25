@@ -7,7 +7,7 @@ public class MyApp extends Application {
 
     public String userID;
 
-    public String userPhone;
+    public final String ip = "http://192.168.0.104:8088";
 
     public String getUserID() {
         return userID;
@@ -17,12 +17,9 @@ public class MyApp extends Application {
         this.userID = userID;
     }
 
-    public String getUserPhone() {
-        return userPhone;
-    }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
+    public String getIP(){
+        return ip;
     }
 
     @Override
