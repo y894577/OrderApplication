@@ -1,5 +1,6 @@
 package com.example.myapplication.Address;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.example.myapplication.Order.OrderAdapter;
 import com.example.myapplication.Order.ShoppingCarData;
 import com.example.myapplication.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

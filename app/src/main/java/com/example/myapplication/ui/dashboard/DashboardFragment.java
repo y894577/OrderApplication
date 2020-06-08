@@ -106,7 +106,7 @@ public class DashboardFragment extends Fragment {
             RequestBody requestBody = new FormBody.Builder()
                     .build();
             Request request = new Request.Builder()
-                    .url("http://192.168.0.104:8088/getAllTag")
+                    .url(ip + "/getAllTag")
                     .get()
                     .build();
             client.newCall(request).enqueue(new Callback() {

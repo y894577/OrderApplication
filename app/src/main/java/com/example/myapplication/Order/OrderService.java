@@ -30,7 +30,6 @@ public class OrderService extends Service {
     public void onCreate() {
         super.onCreate();
         conditionVariable = new ConditionVariable(false);
-//        Log.d("msg", "thread");
         manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Thread notifyingThread = new Thread(null, task, "OrderService");
         notifyingThread.start();

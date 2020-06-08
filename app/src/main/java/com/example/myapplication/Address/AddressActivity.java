@@ -64,7 +64,7 @@ public class AddressActivity extends AppCompatActivity {
     private LinearLayout current_address;
     private MapView mapView;
     private TextView my_address;
-    private StringBuilder currentPosition;
+    private StringBuilder currentPosition = new StringBuilder();
 
     private boolean isFirstLocate = true;
 
@@ -257,13 +257,16 @@ public class AddressActivity extends AppCompatActivity {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-            currentPosition.append(location.getCountry());
-            currentPosition.append(location.getProvince());
-            currentPosition.append(location.getCity());
-            currentPosition.append(location.getDistrict());
-            currentPosition.append(location.getStreet());
-            my_address.setText(currentPosition);
+            StringBuilder currentPosition = new StringBuilder();
+            if (location == null){
+                return;
+            }else {
+                currentPosition.append(location.getProvince());
+                currentPosition.append(location.getCity());
+                currentPosition.append(location.getDistrict());
+                currentPosition.append(location.getStreet());
+                my_address.setText(currentPosition);
+            }
         }
-
     }
 }
